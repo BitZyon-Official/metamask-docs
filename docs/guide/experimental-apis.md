@@ -2,6 +2,12 @@
 
 ## `wallet_` RPC methods
 
+### Wallet Permissions
+
+MetaMask introduced Web3 Wallet Permission via [EIP-2255](https://eips.ethereum.org/EIPS/eip-2255). MetaMask users expose accounts to dapps via this system, and calls to `eth_requestAccounts` are in fact converted to `wallet_requestPermissions` by MetaMask.
+Extensive documentation about these methods are forthcoming.
+Please refer to [EIP-2255](https://eips.ethereum.org/EIPS/eip-2255) in the meantime.
+
 ### wallet_watchAsset
 
 Most all Ethereum wallets display some set of tokens, usually from a centrally curated registry of tokens.
@@ -45,13 +51,13 @@ Each method and its intended use is described below.
 
 ### `ethereum._metamask.isEnabled: () => boolean` (To Be Removed)
 
-**Note:** This will be removed in **early 2020**.
+**Note:** This will be removed in **Q3 2020**.
 
 This method returns a `boolean` indicating if the current domain has access to user accounts. This is useful for determining if a user has approved account access for the current session.
 
 ### `ethereum._metamask.isApproved: () => Promise<boolean>` (To Be Removed)
 
-**Note:** This will be removed in **early 2020**.
+**Note:** This will be removed in **Q3 2020**.
 
 This method returns a `Promise` that resolves to a `Boolean` indicating if the current domain has a cached approval. This is useful for determining if an approval popup will show when `ethereum.enable()` is called, since it indicates if a past approval exists.
 
