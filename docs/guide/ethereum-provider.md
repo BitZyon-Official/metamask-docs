@@ -30,7 +30,7 @@ For any non-trivial Ethereum application, or dapp, to work, you will have to:
 - Get the user's Ethereum account(s)
 
 The snippet at the top of this page is sufficient for detecting the provider.
-You can learn how to accomplish the other two by reviewing [this snippet](about:blank).
+You can learn how to accomplish the other two by reviewing [the snippet at the end of this page](#using-the-provider).
 
 Although any Ethereum operation can be performed via the provider API, most developers use a convenience library with higher-level abstractions.
 The most common such libraries are [ethers](https://www.npmjs.com/package/ethers) and [web3](https://www.npmjs.com/package/web3).
@@ -362,3 +362,7 @@ Precursor of [`message`](#message).
 ```typescript
 ethereum.on('notification', listener: (payload: any) => void);
 ```
+
+## Using the Provider
+
+<<< @/docs/snippets/handleProvider.js
