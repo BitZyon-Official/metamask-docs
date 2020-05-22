@@ -104,7 +104,7 @@ ethereum.on('chainChanged', () => window.location.reload());
 
 ## Methods
 
-### ethereum.request(args)
+### ethereum.request()
 
 > The provider will throw an error if you attempt to overwrite this property.
 
@@ -295,9 +295,13 @@ Returns a hexadecimal string representing the user's "currently selected" addres
 
 ### ethereum.enable() (DEPRECATED)
 
-Alias for `ethereum.request({ method: 'eth_requestAccounts' })
+> Use [`ethereum.request({ method: 'eth_requestAccounts' })`](#request) instead.
 
-### `ethereum.sendAsync(payload: Object, callback: Function): void` (DEPRECATED)
+Alias for `ethereum.request({ method: 'eth_requestAccounts' })`.
+
+### ethereum.sendAsync() (DEPRECATED)
+
+> Use [`ethereum.request()`](#request) instead.
 
 ```typescript
 interface JsonRpcRequest {
@@ -305,7 +309,7 @@ interface JsonRpcRequest {
   jsonrpc: '2.0',
   method: string,
   params?: Array<any>,
-}
+};
 
 interface JsonRpcResponse {
   id: string | undefined,
@@ -313,31 +317,44 @@ interface JsonRpcResponse {
   method: string,
   result?: unknown,
   error?: Error,
-}
+};
 
-ethereum.sendAsync(payload: JsonRpcRequest, callback: Function): void
+type JsonRpcCallback = (error: Error, response: JsonRpcResponse) => unknown;
+
+ethereum.sendAsync(payload: JsonRpcRequest, callback: JsonRpcCallback): void;
 ```
 
 This is the ancestor of `ethereum.request`. It only works for JSON-RPC methods, and takes a JSON-RPC request payload object and an error-first callback function as its arguments.
 
 See [the Ethereum JSON-RPC API](https://eips.ethereum.org/EIPS/eip-1474) for details.
 
-### `ethereum.send(method: string, params: any): Promise<unknown>` (DEPRECATED)
+### ethereum.send() (DEPRECATED)
+
+> Use [`ethereum.request()`](#request) instead.
+
+```typescript
+ethereum.send(
+  methodOrPayload: string | JsonRpcRequest,
+  paramsOrCallback: Array<unknown> | JsonRpcCallback,
+): Promise<JsonRpcResponse> | unknown;
+```
 
 This method is mostly a Promise-based `sendAsync` with `method` and `params` instead of a payload as arguments.
-However, it can behave in unexpected ways and should generally be avoided.
+However, it can behave in unexpected ways and should be avoided at all costs.
 
 ## Deprecated Events
 
 ### close (DEPRECATED)
 
-Precursor of [`disconnect`](#disconnect).
+> Use [`disconnect`](#disconnect) instead.
 
 ```typescript
 ethereum.on('close', listener: (error: Error) => void);
 ```
 
 ### chainIdChanged (DEPRECATED)
+
+> Use [`chainChanged`](#chainChanged) instead.
 
 Misspelled alias of [`chainChanged`](#chainChanged).
 
@@ -346,6 +363,8 @@ ethereum.on('chainChanged', listener: (chainId: string) => void);
 ```
 
 ### networkChanged (DEPRECATED)
+
+> Use [`chainChanged`](#chainChanged) instead.
 
 Like [`chainChanged`](#chainChanged), but with the `networkId` instead.
 Network IDs were deprecated in favor of chain IDs via [EIP-155](https://eips.ethereum.org/EIPS/eip-155) because they are insecure.
@@ -357,12 +376,18 @@ ethereum.on('networkChanged', listener: (networkId: string) => void);
 
 ### notification (DEPRECATED)
 
-Precursor of [`message`](#message).
+> Use [`message`](#message) instead.
 
 ```typescript
 ethereum.on('notification', listener: (payload: any) => void);
 ```
 
 ## Using the Provider
+
+This snippet covers how to:
+
+- Detect the Ethereum provider (`window.ethereum`)
+- Detect which Ethereum network the user is connected to
+- Get the user's Ethereum account(s)
 
 <<< @/docs/snippets/handleProvider.js
