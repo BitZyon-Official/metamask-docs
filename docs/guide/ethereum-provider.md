@@ -305,19 +305,19 @@ Alias for `ethereum.request({ method: 'eth_requestAccounts' })`.
 
 ```typescript
 interface JsonRpcRequest {
-  id: string | undefined,
-  jsonrpc: '2.0',
-  method: string,
-  params?: Array<any>,
-};
+  id: string | undefined;
+  jsonrpc: '2.0';
+  method: string;
+  params?: Array<any>;
+}
 
 interface JsonRpcResponse {
-  id: string | undefined,
-  jsonrpc: '2.0',
-  method: string,
-  result?: unknown,
-  error?: Error,
-};
+  id: string | undefined;
+  jsonrpc: '2.0';
+  method: string;
+  result?: unknown;
+  error?: Error;
+}
 
 type JsonRpcCallback = (error: Error, response: JsonRpcResponse) => unknown;
 
