@@ -111,7 +111,7 @@ ethereum.on('chainChanged', () => window.location.reload());
 ```typescript
 interface RequestArguments {
   method: string;
-  params?: any;
+  params?: unknown[] | object;
 }
 
 ethereum.request(args: RequestArguments): Promise<unknown>;
